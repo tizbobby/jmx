@@ -1,0 +1,15 @@
+{
+  "name": "javmax",
+  "private": true,
+  "version": "1.0.0",
+  "productName": "JAVMax",
+  "description": "The largest JAV library",
+  "authors": "JAVmax",
+  "copyright": "© 2018 Sushi Girls Ltd.",
+  "main": "index.js",
+  "dependencies": {
+    "asar": "^0.14.3",
+    "cross-unzip": "^0.2.1",
+    "win-7zip": "^0.1.1"
+  }
+}
