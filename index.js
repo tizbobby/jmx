@@ -40,21 +40,13 @@ function aunzip(a, b) {
   const pkg = require(path.join(root, 'package.json'));
 
   // patch module
-  /*const oldLoader = Module._extensions['.js'];
-  Module._extensions['.js'] = (module, filename) => {
-    let content = fs.readFileSync(filename, 'utf8');
-
-    if (filename.endsWith(`js${path.sep}app.js`)) {
-      console.log('[Injector] patching app.js');
-      
-      Module._extensions['.js'] = oldLoader;
-    }
-
-    return module._compile(content, filename);
-  };*/
+  require('./shared').patchModule(`js${path.sep}main.js`, content => 
+    content.replace(/'width':0x44c,'height':0x2bc/, '$&,webPreferences:{preload:' + JSON.stringify(path.resolve(__dirname, 'preload.js')) + '}')
+  );
 
   console.log('rooting', pkg.main);
-  require(path.join(root, pkg.main));
+  //require(path.join(root, pkg.main));
+  Module._load(path.join(root, pkg.main), null, true);
 
 })().catch((...e) => {
   console.error('failed', ...e);
